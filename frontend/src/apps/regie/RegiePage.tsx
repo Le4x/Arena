@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export default function RegiePage() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
