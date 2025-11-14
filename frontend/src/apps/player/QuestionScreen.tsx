@@ -11,8 +11,6 @@ interface QuestionScreenProps {
 
 export default function QuestionScreen({
   question,
-  game,
-  team,
   onBuzz,
   onSubmitAnswer,
 }: QuestionScreenProps) {

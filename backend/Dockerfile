@@ -17,6 +17,8 @@ RUN npm ci --only=production
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/uploads ./uploads
+COPY --from=builder /app/ormconfig.js ./ormconfig.js
+COPY --from=builder /app/scripts ./scripts
 
 EXPOSE 3000 3001
 
