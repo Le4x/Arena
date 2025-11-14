@@ -2,6 +2,14 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
+# Arguments de build pour les variables d'environnement Vite
+ARG VITE_API_URL
+ARG VITE_WS_URL
+
+# Définir les variables d'environnement pour le build
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_WS_URL=$VITE_WS_URL
+
 COPY package*.json ./
 RUN npm ci
 

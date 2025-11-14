@@ -38,4 +38,4 @@ logs/
 *.log
 
 # Docker
-.dockerignore
+# .dockerignore files should be versioned
