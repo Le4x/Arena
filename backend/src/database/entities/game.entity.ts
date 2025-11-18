@@ -26,6 +26,9 @@ export class Game {
   @Column({ type: 'uuid' })
   showId: string;
 
+  @Column({ type: 'uuid', nullable: true })
+  hostId?: string;
+
   @ManyToOne(() => Show)
   @JoinColumn({ name: 'showId' })
   show: Show;

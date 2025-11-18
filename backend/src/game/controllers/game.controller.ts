@@ -7,6 +7,7 @@ import {
   Body,
   UseGuards,
   Query,
+  Req,
 } from '@nestjs/common';
 import { GameService } from '../services/game.service';
 import { BuzzerService } from '../services/buzzer.service';
@@ -24,8 +25,8 @@ export class GameController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async createGame(@Body('showId') showId: string) {
-    return this.gameService.createGame(showId);
+  async createGame(@Body('showId') showId: string, @Req() req: any) {
+    return this.gameService.createGame(showId, req.user?.id);
   }
 
   @Get('pin/:pinCode')

@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Team } from '../../database/entities/team.entity';
 import { Player } from '../../database/entities/player.entity';
 import { Game } from '../../database/entities/game.entity';
+import { MonetizationService } from '../../monetization/monetization.service';
 
 @Injectable()
 export class TeamService {
@@ -14,6 +15,7 @@ export class TeamService {
     private readonly playerRepository: Repository<Player>,
     @InjectRepository(Game)
     private readonly gameRepository: Repository<Game>,
+    private readonly monetizationService: MonetizationService,
   ) {}
 
   async createTeam(
@@ -89,6 +91,8 @@ export class TeamService {
       isConnected: true,
       lastSeenAt: new Date(),
     });
+
+    await this.monetizationService.assertPlayerCapacity(team.game);
 
     return this.playerRepository.save(player);
   }
