@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Game, GameStatus } from '../../database/entities/game.entity';
 import { Show } from '../../database/entities/show.entity';
 import { customAlphabet } from 'nanoid';
+import { MonetizationService } from '../../monetization/monetization.service';
 
 const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6);
 
@@ -14,9 +15,10 @@ export class GameService {
     private readonly gameRepository: Repository<Game>,
     @InjectRepository(Show)
     private readonly showRepository: Repository<Show>,
+    private readonly monetizationService: MonetizationService,
   ) {}
 
-  async createGame(showId: string): Promise<Game> {
+  async createGame(showId: string, hostId?: string): Promise<Game> {
     const show = await this.showRepository.findOne({
       where: { id: showId },
       relations: ['rounds', 'rounds.questions'],
@@ -26,14 +28,27 @@ export class GameService {
       throw new NotFoundException('Show non trouvé');
     }
 
+    if (hostId) {
+      await this.monetizationService.assertGameCreationAllowed(hostId);
+    }
+
     // Générer un code PIN unique
     const pinCode = await this.generateUniquePinCode();
 
+    const entitlements = hostId
+      ? await this.monetizationService.buildEntitlements(hostId)
+      : null;
+    const maxTeamsByShow = show.settings?.maxTeams || 60;
+    const maxTeams = entitlements
+      ? Math.min(entitlements.maxTeams, maxTeamsByShow)
+      : maxTeamsByShow;
+
     const game = this.gameRepository.create({
       showId,
+      hostId,
       pinCode,
       status: GameStatus.LOBBY,
-      maxTeams: show.settings?.maxTeams || 60,
+      maxTeams,
       state: {
         currentRoundIndex: 0,
         currentQuestionIndex: 0,

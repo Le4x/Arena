@@ -7,6 +7,7 @@ import { dataSourceOptions } from './config/typeorm.config';
 import { AuthModule } from './auth/auth.module';
 import { GameModule } from './game/game.module';
 import { WebsocketModule } from './websocket/websocket.module';
+import { MonetizationModule } from './monetization/monetization.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { WebsocketModule } from './websocket/websocket.module';
     AuthModule,
     GameModule,
     WebsocketModule,
+    MonetizationModule,
   ],
 })
 export class AppModule {}

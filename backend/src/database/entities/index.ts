@@ -8,3 +8,7 @@ export * from './team.entity';
 export * from './player.entity';
 export * from './answer.entity';
 export * from './buzzer-attempt.entity';
+export * from './plan.entity';
+export * from './subscription.entity';
+export * from './marketplace-asset.entity';
+export * from './purchase.entity';

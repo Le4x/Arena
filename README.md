@@ -13,6 +13,7 @@
 - 📺 Écran public avec animations impressionnantes
 - 🎛️ Interface de régie pour contrôler le show
 - 🔐 Système de rôles (Admin, Régie, Animateur, Joueurs)
+- 💰 Monétisation intégrée (Freemium + Premium via Stripe + Marketplace .ARE)
 - 🌐 Déployable en local (LAN) ou sur AWS
 
 ---
@@ -37,6 +38,12 @@
 - Docker + Docker Compose
 - Nginx reverse proxy
 - Support AWS + local
+- Stripe (abonnements) + S3 (marketplace .ARE)
+
+### Monétisation
+- Freemium : 10 joueurs, 1 partie/jour, audio custom désactivé
+- Premium : illimité, médias custom, finale, stockage cloud, support prioritaire
+- Marketplace : publication et vente de fichiers `.ARE` (voir `docs/MONETISATION.md`)
 
 ---
 

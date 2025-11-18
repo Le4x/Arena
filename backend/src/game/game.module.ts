@@ -19,6 +19,7 @@ import { ScoringService } from './services/scoring.service';
 import { ShowController } from './controllers/show.controller';
 import { GameController } from './controllers/game.controller';
 import { TeamController } from './controllers/team.controller';
+import { MonetizationModule } from '../monetization/monetization.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { TeamController } from './controllers/team.controller';
       BuzzerAttempt,
       Theme,
     ]),
+    MonetizationModule,
   ],
   controllers: [ShowController, GameController, TeamController],
   providers: [
